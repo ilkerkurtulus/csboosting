@@ -39,8 +39,7 @@ class CSGbm(BaseEstimator, ClassifierMixin):
         self.y_ = y
 
         n = len(X)
-        # its wrong
-        # p = ((y*self.cost_alpha) / (y*self.cost_alpha + self.cost_beta - self.cost_beta*y)).sum()/n # this is p0
+        # p0: initial predicted probability
         p = (np.sum(individual_costs*y*self.cost_alpha))/np.sum(individual_costs*(y*(self.cost_alpha - self.cost_beta) + self.cost_beta))
 
         # first log odds
@@ -49,7 +48,6 @@ class CSGbm(BaseEstimator, ClassifierMixin):
 
         p = np.repeat(p, n)
         f = np.repeat(f, n)
-
 
         # step2: iteration
 
